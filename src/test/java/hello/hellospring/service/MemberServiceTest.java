@@ -22,11 +22,6 @@ class MemberServiceTest {
         memberService = new MemberService(memberRepository);
     }
 
-    @AfterEach
-    public void afterEach(){
-        memberRepository.clearStore();
-    }
-
     @Test
     void 회원가입(){
         //given : 무언가가 주어졌는데 (이 데이터를 기반으로)

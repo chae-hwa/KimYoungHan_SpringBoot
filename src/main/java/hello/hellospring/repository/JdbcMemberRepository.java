@@ -73,7 +73,7 @@ public class JdbcMemberRepository implements MemberRepository {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             List<Member> members = new ArrayList<>();
-            while(rs.next()) {
+            while (rs.next()) {
                 Member member = new Member();
                 member.setId(rs.getLong("id"));
                 member.setName(rs.getString("name"));
@@ -85,11 +85,6 @@ public class JdbcMemberRepository implements MemberRepository {
         } finally {
             close(conn, pstmt, rs);
         }
-    }
-
-    @Override
-    public void clearStore() {
-
     }
 
     @Override
