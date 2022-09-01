@@ -3,35 +3,29 @@ package hello.hellospring.service;
 import hello.hellospring.Service.MemberService;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
-import hello.hellospring.repository.MemoryMemberRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MemberServiceTest {
+@SpringBootTest
+@Transactional // test가 끝나면 Rollback을 자동으로 실행( DB 지우기)
+class MemberServiceIntegrationTest {
 
+    @Autowired
     MemberService memberService;
+    @Autowired
     MemberRepository memberRepository;
 
-    @BeforeEach
-    public void beforeEach(){
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-    }
-
-    @AfterEach
-    public void afterEach(){
-        memberRepository.clearStore();
-    }
 
     @Test
     void 회원가입(){
         //given : 무언가가 주어졌는데 (이 데이터를 기반으로)
         Member member = new Member();
-        member.setName("hello");
+        member.setName("spring");
 
         //when : 이거를 실행했을 때 (이걸 검증하는구나)
         Long saveId = memberService.join(member);
@@ -56,5 +50,6 @@ class MemberServiceTest {
 
         //then : 결과가 이렇게 나와야 된다.
     }
+
 }
 
